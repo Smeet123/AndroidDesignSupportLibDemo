@@ -60,6 +60,7 @@ public class ScrollableActivity1 extends AppCompatActivity
     {
         searchbox = (SearchBox) findViewById(R.id.searchbox);
         searchbox.enableVoiceRecognition(this);
+        searchbox.setLogoText(getString(R.string.search_hint));
 
         searchbox.setSearchListener(new SearchBox.SearchListener()
         {
@@ -88,6 +89,7 @@ public class ScrollableActivity1 extends AppCompatActivity
             public void onSearch(String searchTerm)
             {
                 Log.d(TAG, "===onSearch===" + searchTerm);
+                setActivityTitle(searchTerm);
             }
 
             @Override
@@ -141,7 +143,7 @@ public class ScrollableActivity1 extends AppCompatActivity
     private void initToolbar()
     {
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
-        mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
+        setActivityTitle(null);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -149,6 +151,18 @@ public class ScrollableActivity1 extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void setActivityTitle(final String title)
+    {
+        if(title == null)
+        {
+            mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
+        }
+        else
+        {
+            mCollapsingToolbarLayout.setTitle(title);
+        }
+        mCollapsingToolbarLayout.invalidate();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -183,7 +197,7 @@ public class ScrollableActivity1 extends AppCompatActivity
 
         if(searchbox.getSearchText().isEmpty())
         {
-            mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
+            setActivityTitle(null);
         }
     }
 
@@ -192,8 +206,8 @@ public class ScrollableActivity1 extends AppCompatActivity
     {
         if(searchbox.isShown())
         {
-            showHideToolbarMenuIcons(false);
-            searchbox.hideCircularly(this);
+            //showHideToolbarMenuIcons(false);
+            searchbox.toggleSearch();
         }
         else
         {
