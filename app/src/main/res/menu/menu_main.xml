@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:compat="http://schemas.android.com/tools"
+      compat:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_list"
+        android:orderInCategory="100"
+        compat:showAsAction="never"
+        android:title="@string/menu_action_list"/>
+
+    <item
+        android:id="@+id/scrollable_activity1"
+        android:orderInCategory="101"
+        compat:showAsAction="never"
+        android:title="@string/menu_scrolable_activity1"/>
+</menu>
